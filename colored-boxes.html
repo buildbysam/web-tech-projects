@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Colored Boxes</title>
+        <style>
+            *,
+            *::after,
+            *::before {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                background-color: #fdf0d5;
+            }
+            .container {
+                display: flex;
+                padding: 20px 15px;
+                justify-content: center;
+                align-items: center;
+                gap: 12px;
+            }
+            .box-container {
+                display: flex;
+                gap: 8px;
+            }
+            .box {
+                width: 90px;
+                height: 90px;
+                border-radius: 10px;
+            }
+            #box-0 > .box {
+                background-color: #c1121f;
+            }
+            #box-1 > .box {
+                background-color: #7cb518;
+            }
+            #box-2 > .box {
+                background-color: #219ebc;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container"></div>
+        <script type="text/javascript">
+            const container = document.querySelector(".container");
+            for (let i = 0; i < 3; i++) {
+                const boxContainer = document.createElement("div");
+                boxContainer.className = "box-container";
+                boxContainer.setAttribute("id", `box-${i}`);
+                for (let j = 0; j < 3; j++) {
+                    const boxItem = document.createElement("div");
+                    boxItem.className = "box";
+                    boxContainer.appendChild(boxItem);
+                }
+                container.appendChild(boxContainer);
+            }
+        </script>
+    </body>
+</html>
