@@ -15,3 +15,7 @@ _Screenshot of the html table task._
 - [Task 4: Register Form](./register-form.html)
 ![Register Form](screenshots/register-form.png)
 _Screenshot of the register form task._
+
+- [Task 5: Sum and swap](./sum-and-swap)
+![Register Form](screenshots/sum-and-swap.png)
+_Screenshot of the sum and swap task._
