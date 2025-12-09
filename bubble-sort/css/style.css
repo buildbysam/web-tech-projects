@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap");
+
+:root {
+    --color-primary: #1dafa1;
+    --color-background: #fcfaf8;
+    --color-text: #29303d;
+    --color-card: #fff;
+    --color-muted: #f3f4f6;
+    --color-muted-text: #737b8c;
+    --color-border: #e2e4e9;
+    --color-destructive: #e25050;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: var(--color-background);
+    padding: 40px;
+    margin: 0;
+    color: var(--color-text);
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Cards */
+.card {
+    background: var(--color-card);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+    margin-bottom: 30px;
+}
+
+.card > h3 {
+    font-weight: 500;
+}
+
+/* Slider Card from Screenshot */
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider-value {
+    background: rgba(29, 175, 161, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+input[type="range"] {
+    height: 26px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+}
+input[type="range"]:focus {
+    outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #e2e4e9;
+    border-radius: 50px;
+    border: 0px solid #000000;
+}
+input[type="range"]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #1dafa1;
+    height: 18px;
+    width: 18px;
+    border-radius: 25px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px;
+}
+input[type="range"]:focus::-webkit-slider-runnable-track {
+    background: #e2e4e9;
+}
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #e2e4e9;
+    border-radius: 50px;
+    border: 0px solid #000000;
+}
+input[type="range"]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #1dafa1;
+    height: 18px;
+    width: 18px;
+    border-radius: 25px;
+    background: #ffffff;
+    cursor: pointer;
+}
+input[type="range"]::-ms-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+    background: #e2e4e9;
+    border: 0px solid #000000;
+    border-radius: 100px;
+    box-shadow: 0px 0px 0px #000000;
+}
+input[type="range"]::-ms-fill-upper {
+    background: #e2e4e9;
+    border: 0px solid #000000;
+    border-radius: 100px;
+    box-shadow: 0px 0px 0px #000000;
+}
+input[type="range"]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #1dafa1;
+    height: 18px;
+    width: 18px;
+    border-radius: 25px;
+    background: #ffffff;
+    cursor: pointer;
+}
+input[type="range"]:focus::-ms-fill-lower {
+    background: #e2e4e9;
+}
+input[type="range"]:focus::-ms-fill-upper {
+    background: #e2e4e9;
+}
+
+/* Bars */
+.bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 320px;
+    padding: 20px;
+    background: var(--color-muted);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+}
+
+.bar {
+    flex: 1;
+    background: var(--color-primary);
+    border-radius: 6px;
+}
+
+/* Buttons */
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button.red {
+    background: var(--color-destructive);
+}
+
+button:disabled {
+    background: var(--color-muted-text);
+    cursor: not-allowed;
+}

@@ -19,3 +19,7 @@ _Screenshot of the register form task._
 - [Task 5: Sum and swap](./sum-and-swap)
 ![Sum and Swap](screenshots/sum-and-swap-result.png)
 _Screenshot of the sum and swap task._
+
+- [Task 6: PHP Bubble Sort](./bubble-sort)
+![Sum and Swap](screenshots/bubble-sort.png)
+_Screenshot of the bubble sort task._
