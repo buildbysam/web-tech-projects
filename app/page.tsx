@@ -1,7 +1,7 @@
 export default function Page() {
   return (
-    <div className="flex justify-center items-center">
-      <h1 className="text-2xl text-blue-400">Hello, World!</h1>
-    </div>
+    <main>
+      <h1 className="text-primary text-lg">Hello</h1>
+    </main>
   );
 }
