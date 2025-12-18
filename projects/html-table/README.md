@@ -1,7 +1,39 @@
 ---
 title: HTML Table
+description: A clean and organized data table built with HTML and CSS to display contact information.
+date_created: 2025-12-18
+github_url: https://github.com/
+tech_stack:
+  - HTML
+  - CSS
 ---
 
-- [Task 3: HTML Tables](./index.html)
-![HTML Table](screenshots/html-table.png)
-_Screenshot of the html table task._
+# HTML Table
+
+A clean and organized data table built with HTML and CSS to display contact information.
+
+## Project Preview
+
+![screenshot of html table project](screenshots/html-table.png)
+
+## Objectives
+* To practice structuring data using HTML table tags.
+* To apply custom styling to improve the readability of data rows.
+
+## Key Features
+* **Styled Header:** A bright orange header that clearly distinguishes the column titles.
+* **Modern Design:** Rounded corners and a hidden overflow for a sleek, card-like appearance.
+* **Centered Layout:** The table is automatically centered on the screen for better focus.
+* **Readable Spacing:** Generous padding within cells to prevent text from feeling cramped.
+
+## Concepts Learned
+* **Table Structure:** Using `<table>`, `<thead>`, `<tbody>`, `<tr>`, `th`, and `<td>` correctly.
+* **Border Collapse:** Using `border-collapse: collapse` to create a seamless table look.
+* **CSS Typography:** Setting specific font weights and sizes for table headers.
+* **Layout Management:** Using `margin: auto` and `max-width` to control the table size.
+
+## Tools and Technologies Used
+* **HTML5:** For the semantic table structure.
+* **CSS3:** For colors, spacing, and layout styling.
+
+---

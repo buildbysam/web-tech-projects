@@ -20,7 +20,7 @@ export interface IProject extends IProjectAttributes {
   screenshots: Screenshot[];
   objective?: string;
   key_features?: string[];
-  concepts_earned?: string[];
+  concepts_learned?: string[];
   tools_technologies?: string[];
 }
 
