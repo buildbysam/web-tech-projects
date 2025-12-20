@@ -5,10 +5,8 @@ export default function AllProjectsPage() {
   console.log(projects);
 
   return (
-    <div>
-      <main>
-        <h1 className="text-primary text-lg">All Projects Page</h1>
-      </main>
-    </div>
+    <main className="py-6">
+      <h1 className="text-primary text-lg">All Projects Page</h1>
+    </main>
   );
 }

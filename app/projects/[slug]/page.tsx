@@ -8,10 +8,8 @@ export default async function SingleProjectPage({ params }: { params: Promise<{ 
   console.log(slugs);
 
   return (
-    <div>
-      <main>
-        <h1 className="text-primary text-lg">{slug}</h1>
-      </main>
-    </div>
+    <main className="py-6">
+      <h1 className="text-primary text-lg">{slug}</h1>
+    </main>
   );
 }

@@ -1,7 +1,12 @@
-import { Fira_Code, Inter } from "next/font/google";
+import { Fira_Code, Inter, Ubuntu } from "next/font/google";
 
 export const inter = Inter({
   weight: "variable",
+  subsets: ["latin"],
+});
+
+export const ubuntu = Ubuntu({
+  weight: "400",
   subsets: ["latin"],
 });
 
