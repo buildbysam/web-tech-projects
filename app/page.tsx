@@ -1,5 +1,5 @@
 import Icon from "@/components/icon";
-import ProjectCard from "@/components/project-card";
+import ProjectCardGrid from "@/components/project-card-grid";
 import { ubuntu } from "@/lib/fonts";
 import { getAllProjects, getProjectsCount, getTechnologiesUsedCount } from "@/lib/projects";
 import { CodeXml, icons } from "lucide-react";
@@ -57,7 +57,7 @@ export default async function HomePage() {
           {features_card_list.map((item, idx) => (
             <div
               key={idx}
-              className="card rounded-xl p-4 gap-2 lg:gap-4 flex items-start flex-col lg:flex-row mx-auto w-full max-w-md sm:max-w-full"
+              className="card p-4 gap-2 lg:gap-4 flex items-start flex-col lg:flex-row mx-auto w-full max-w-md sm:max-w-full"
             >
               <div className="bg-accent rounded-lg p-2.5">
                 <Icon name={item.icon as keyof typeof icons} className="text-accent-foreground size-5" />
@@ -81,11 +81,7 @@ export default async function HomePage() {
             Projects
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-md sm:max-w-full">
-          {projects.map(async (project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
+        <ProjectCardGrid projects={projects} />
       </section>
     </main>
   );

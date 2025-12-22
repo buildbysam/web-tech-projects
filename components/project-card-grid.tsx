@@ -1,7 +1,7 @@
-import { ubuntu } from "@/lib/fonts";
+import { firacode, ubuntu } from "@/lib/fonts";
 import { formatDate } from "@/lib/utils";
 import { IProjectListItem, IScreenshot } from "@/types/projects.types";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, Calendar, SearchX } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import TechBadge from "./tech-badge";
@@ -12,15 +12,16 @@ async function ProjectThumbnail({ src, alt }: IScreenshot) {
     const { default: imageAsset } = await import(`../projects/${pathSnippet}.png`);
     return <Image className="object-cover size-full group-hover:scale-105" src={imageAsset} alt={alt} />;
   } catch (err) {
-    <p>Image not found</p>;
+    return (
+      <div className="size-full flex-center text-destructive gap-2">
+        <SearchX className="size-6" />
+        <p className={`${firacode.className} text-lg font-medium`}>Image missing</p>
+      </div>
+    );
   }
 }
 
-interface Props {
-  project: IProjectListItem;
-}
-
-export default function ProjectCard({ project }: Props) {
+function ProjectCard({ project }: { project: IProjectListItem }) {
   return (
     <Link href={`/projects/${project.slug}`} className="group card block overflow-hidden">
       <div className="aspect-video overflow-hidden bg-muted">
@@ -47,5 +48,15 @@ export default function ProjectCard({ project }: Props) {
         </p>
       </div>
     </Link>
+  );
+}
+
+export default function ProjectCardGrid({ projects }: { projects: IProjectListItem[] }) {
+  return (
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-md sm:max-w-full">
+      {projects.map(async (project) => (
+        <ProjectCard key={project.slug} project={project} />
+      ))}
+    </div>
   );
 }
