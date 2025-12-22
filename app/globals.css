@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where (.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: hsl(0 0% 99%);
@@ -35,8 +35,8 @@
   --file-tree-bg: hsl(220 14% 98%);
   --file-tree-hover: hsl(220 14% 94%);
   --file-active: hsl(173 58% 95%);
-  --badge-bg: hsl(220 14% 96%);
-  --badge-text: hsl(220 9% 40%);
+  --badge: hsl(220 14% 96%);
+  --badge-foreground: hsl(220 9% 40%);
   --shadow-sm: hsl(0 1px 2px 0 hsl(220 13% 13% / 0.03));
   --shadow-md: hsl(0 4px 6px -1px hsl(220 13% 13% / 0.05), 0 2px 4px -2px hsl(220 13% 13% / 0.05));
   --shadow-lg: hsl(0 10px 15px -3px hsl(220 13% 13% / 0.08), 0 4px 6px -4px hsl(220 13% 13% / 0.05));
@@ -85,8 +85,8 @@
   --file-tree-bg: hsl(224 20% 11%);
   --file-tree-hover: hsl(224 18% 18%);
   --file-active: hsl(173 40% 18%);
-  --badge-bg: hsl(224 18% 18%);
-  --badge-text: hsl(220 9% 70%);
+  --badge: hsl(224 18% 18%);
+  --badge-foreground: hsl(220 9% 70%);
   --shadow-sm: hsl(0 1px 2px 0 hsl(0 0% 0% / 0.2));
   --shadow-md: hsl(0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2));
   --shadow-lg: hsl(0 10px 15px -3px hsl(0 0% 0% / 0.4), 0 4px 6px -4px hsl(0 0% 0% / 0.2));
@@ -135,8 +135,8 @@
   --color-file-tree-bg: var(--file-tree-bg);
   --color-file-tree-hover: var(--file-tree-hover);
   --color-file-active: var(--file-active);
-  --color-badge-bg: var(--badge-bg);
-  --color-badge-text: var(--badge-text);
+  --color-badge: var(--badge);
+  --color-badge-foreground: var(--badge-foreground);
   --color-shadow-sm: var(--shadow-sm);
   --color-shadow-md: var(--shadow-md);
   --color-shadow-lg: var(--shadow-lg);

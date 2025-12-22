@@ -1,40 +1,32 @@
 import Icon from "@/components/icon";
+import ProjectCard from "@/components/project-card";
 import { ubuntu } from "@/lib/fonts";
-import { getAllProjects } from "@/lib/projects";
-import { formatDate } from "@/lib/utils";
-import { IScreenshot } from "@/types/projects.types";
-import { ArrowRight, Calendar, CodeXml, icons } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-
-const stats_card_list = [
-  { value: "4", title: "projects" },
-  { value: "5+", title: "technologies" },
-  { value: "4", title: "semester" },
-];
-
-const features_card_list = [
-  { icon: "CodeXml", title: "Clean Code", description: "Well-structured and documented code following best practices" },
-  { icon: "Layers", title: "Modern Stack", description: "Built with current industry-standard technologies" },
-  {
-    icon: "BookOpen",
-    title: "Learning Focused",
-    description: "Each project teaches specific web development concepts",
-  },
-];
-
-async function ProjectThumbnail({ src, alt }: IScreenshot) {
-  const pathSnippet = src.replace("/projects/", "").replace(".png", "");
-  try {
-    const { default: imageAsset } = await import(`../projects/${pathSnippet}.png`);
-    return <Image src={imageAsset} alt={alt} />;
-  } catch (err) {
-    <p>Image not found</p>;
-  }
-}
+import { getAllProjects, getProjectsCount } from "@/lib/projects";
+import { CodeXml, icons } from "lucide-react";
 
 export default async function HomePage() {
-  const projects = getAllProjects();
+  const projects = getAllProjects().splice(0, 6);
+  const totalProjectsCount = getProjectsCount();
+
+  const stats_card_list = [
+    { value: totalProjectsCount.toString(), title: "projects" },
+    { value: "5+", title: "technologies" },
+    { value: "4", title: "semester" },
+  ];
+
+  const features_card_list = [
+    {
+      icon: "CodeXml",
+      title: "Clean Code",
+      description: "Well-structured and documented code following best practices",
+    },
+    { icon: "Layers", title: "Modern Stack", description: "Built with current industry-standard technologies" },
+    {
+      icon: "BookOpen",
+      title: "Learning Focused",
+      description: "Each project teaches specific web development concepts",
+    },
+  ];
 
   return (
     <main>
@@ -65,7 +57,7 @@ export default async function HomePage() {
           {features_card_list.map((item, idx) => (
             <div
               key={idx}
-              className="card max-w-sm mx-auto w-full sm:max-w-full rounded-xl p-4 gap-2 lg:gap-4 flex items-start flex-col lg:flex-row"
+              className="card rounded-xl p-4 gap-2 lg:gap-4 flex items-start flex-col lg:flex-row mx-auto w-full max-w-md sm:max-w-full"
             >
               <div className="bg-accent rounded-lg p-2.5">
                 <Icon name={item.icon as keyof typeof icons} className="text-accent-foreground size-5" />
@@ -81,35 +73,17 @@ export default async function HomePage() {
 
       <section className="section-container">
         <div className="flex-between mb-10">
-          <h2 className={`${ubuntu.className} section-title`}>All Projects</h2>
-          <p className="text-muted-foreground text-sm md:text-base">4 Projects</p>
+          <h2 className={`${ubuntu.className} section-title`}>Featured Projects</h2>
+          <p className="text-muted-foreground text-sm md:text-base">
+            {totalProjectsCount > projects.length
+              ? `${projects.length} of ${totalProjectsCount}`
+              : totalProjectsCount.toString()}{" "}
+            Projects
+          </p>
         </div>
-        <div>
-          {projects.map(async (project, idx) => (
-            <div key={project.slug} className="group card">
-              <ProjectThumbnail src={project.thumbnail.src} alt={project.thumbnail.alt} />
-              <div className="p-5">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                  <span className="text-primary">Task {idx + 1}</span>
-                  <span>&bull;</span>
-                  <span className="flex items-center gap-1">
-                    <Calendar className="size-3" />
-                    {formatDate(project.date_created)}
-                  </span>
-                </div>
-                <h3 className={`${ubuntu.className} font-semibold text-lg mb-2 group-hover:text-primary`}>
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm line-clamp-2 mb-4">{project.description}</p>
-
-                {/* Tech badge */}
-                <div></div>
-
-                <Link href={"/"} className="flex items-center text-sm font-medium text-primary">
-                  View Details <ArrowRight className="ml-1 size-4 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-md sm:max-w-full">
+          {projects.map(async (project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
       </section>

@@ -25,5 +25,6 @@ export interface IProject extends IProjectAttributes {
 }
 
 export interface IProjectListItem extends IProjectAttributes {
+  index: number;
   thumbnail: IScreenshot;
 }

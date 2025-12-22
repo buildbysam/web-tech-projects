@@ -1,8 +1,9 @@
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
+import ThemeProvider from "@/components/theme-provider";
+import { inter } from "@/lib/fonts";
 import type { Metadata } from "next";
 import "./globals.css";
-import { inter } from "@/lib/fonts";
-import ThemeProvider from "@/components/theme-provider";
-import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,9 +19,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased styled-scrollbar`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="w-full min-h-screen relative">
+          <div className="w-full min-h-screen flex flex-col relative">
             <Navbar />
-            {children}
+            <div className="flex-1">{children}</div>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>

@@ -144,27 +144,34 @@ export function getProjectContent(): IProject {
 
 export function getProjectFiles() {}
 
+export function getProjectsCount() {
+  if (!PROJECT_REGISTRY.size) {
+    PROJECT_REGISTRY = buildProjectRegistry();
+  }
+  return PROJECT_REGISTRY.size;
+}
+
 export function getAllProjects(): IProjectListItem[] {
   if (!PROJECT_REGISTRY.size) {
     PROJECT_REGISTRY = buildProjectRegistry();
   }
   const projectsList: IProjectListItem[] = [];
-  PROJECT_REGISTRY.forEach((projectDirPath) => {
+
+  PROJECT_REGISTRY.values().forEach((projectDirPath, idx) => {
     const files = fs.readdirSync(projectDirPath);
     if (!files.includes("README.md")) {
       return;
     }
-
     const filePath = path.join(projectDirPath, "README.md");
     const fileContents = fs.readFileSync(filePath, "utf-8");
     const { data: rawMetadata, content: rawContent } = matter(fileContents);
-
     const projectTitle = rawMetadata.title ?? getProjectTitle(rawContent);
     if (!projectTitle) {
       return;
     }
     const imagePath = path.join("/projects", projectDirPath.replace(PROJECTS_ROOT, ""));
     projectsList.push({
+      index: idx + 1,
       title: projectTitle,
       slug: slugify(projectTitle),
       description: getProjectDescription(rawContent),
