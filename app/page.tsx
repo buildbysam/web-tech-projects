@@ -1,7 +1,7 @@
 import Icon from "@/components/icon";
 import ProjectCard from "@/components/project-card";
 import { ubuntu } from "@/lib/fonts";
-import { getAllProjects, getProjectsCount } from "@/lib/projects";
+import { getAllProjects, getProjectsCount, getTechnologiesUsedCount } from "@/lib/projects";
 import { CodeXml, icons } from "lucide-react";
 
 export default async function HomePage() {
@@ -10,7 +10,7 @@ export default async function HomePage() {
 
   const stats_card_list = [
     { value: totalProjectsCount.toString(), title: "projects" },
-    { value: "5+", title: "technologies" },
+    { value: getTechnologiesUsedCount(), title: "technologies" },
     { value: "4", title: "semester" },
   ];
 

@@ -1,4 +1,4 @@
-import { IProject, IProjectListItem, IProjectMetadata, IScreenshot, Screenshot } from "@/types/projects.types";
+import { IProject, IProjectListItem, IProjectMetadata, IScreenshot } from "@/types/projects.types";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import fs from "node:fs";
@@ -57,7 +57,7 @@ export function getListFromSection(content: string, sectionName: string): string
 
 export function getProjectScreenshots(content: string, dirPath: string): IScreenshot[] {
   const mdImageRegex = /!\[(.*?)\]\((.*?\.(?:png|jpg|jpeg|webp|gif|svg))\)/gi;
-  const screenshots: Screenshot[] = [];
+  const screenshots: IScreenshot[] = [];
   let match;
   while ((match = mdImageRegex.exec(content)) !== null) {
     const [_, alt, src] = match;
@@ -138,17 +138,43 @@ export function getProjectMetadata(slug: string): IProjectMetadata {
   return { title, description };
 }
 
-export function getProjectContent(): IProject {
-  return {};
-}
+// export function getProjectContent(): IProject {
+//   return {};
+// }
 
-export function getProjectFiles() {}
+// export function getProjectFiles() {}
 
-export function getProjectsCount() {
+export function getProjectsCount(): number {
   if (!PROJECT_REGISTRY.size) {
     PROJECT_REGISTRY = buildProjectRegistry();
   }
   return PROJECT_REGISTRY.size;
+}
+
+export function getTechnologiesUsed(): string[] {
+  if (!PROJECT_REGISTRY.size) {
+    PROJECT_REGISTRY = buildProjectRegistry();
+  }
+  const techUsedList = new Set<string>();
+  PROJECT_REGISTRY.values().forEach((projectDirPath) => {
+    const files = fs.readdirSync(projectDirPath);
+    if (!files.includes("README.md")) {
+      return;
+    }
+    const filePath = path.join(projectDirPath, "README.md");
+    const fileContents = fs.readFileSync(filePath, "utf-8");
+    const { data: rawMetadata, content: rawContent } = matter(fileContents);
+    const projectTitle = rawMetadata.title ?? getProjectTitle(rawContent);
+    if (!projectTitle) {
+      return;
+    }
+    parseMarkdownList(rawMetadata.tech_stack).forEach((tech) => techUsedList.add(tech));
+  });
+  return Array.from(techUsedList);
+}
+
+export function getTechnologiesUsedCount(): number {
+  return getTechnologiesUsed().length;
 }
 
 export function getAllProjects(): IProjectListItem[] {
