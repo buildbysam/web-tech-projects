@@ -30,29 +30,31 @@ export default async function HomePage() {
 
   return (
     <main>
-      <section className="section-container text-center">
-        <div className="space-y-5">
-          <div className="text-accent-foreground bg-accent inline-flex justify-center items-center gap-1.5 py-2 px-3.5 text-sm rounded-full">
-            <CodeXml className="size-5" />
-            <p className={`${ubuntu.className} capitalize`}>web technology class</p>
-          </div>
-          <h1 className={`${ubuntu.className} page-title`}>Project Showcase</h1>
-          <p className="section-description max-w-4xl mx-auto">
-            A curated collection of web development projects completed throughout the Web Technology course. Each
-            project demonstrates practical skills in modern web technologies.
-          </p>
-        </div>
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 max-w-2xl mx-auto mt-12">
-          {stats_card_list.map((item, idx) => (
-            <div key={idx} className="card p-2 md:p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold text-foreground">{item.value}</p>
-              <p className="text-sm text-muted-foreground mt-1 capitalize">{item.title}</p>
+      <section className="border-b border-border">
+        <div className="section-container text-center">
+          <div className="space-y-5">
+            <div className="text-accent-foreground bg-accent inline-flex justify-center items-center gap-1.5 py-2 px-3.5 text-sm rounded-full">
+              <CodeXml className="size-5" />
+              <p className={`${ubuntu.className} capitalize`}>web technology class</p>
             </div>
-          ))}
+            <h1 className={`${ubuntu.className} page-title`}>Project Showcase</h1>
+            <p className="section-description max-w-4xl mx-auto">
+              A curated collection of web development projects completed throughout the Web Technology course. Each
+              project demonstrates practical skills in modern web technologies.
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 max-w-2xl mx-auto mt-12">
+            {stats_card_list.map((item, idx) => (
+              <div key={idx} className="card p-2 md:p-4 text-center">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{item.value}</p>
+                <p className="text-sm text-muted-foreground mt-1 capitalize">{item.title}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-muted/30">
+      <section className="bg-muted/30 border-b border-border">
         <div className="section-container grid sm:grid-cols-3 gap-4 lg:gap-6">
           {features_card_list.map((item, idx) => (
             <div
@@ -63,7 +65,7 @@ export default async function HomePage() {
                 <Icon name={item.icon as keyof typeof icons} className="text-accent-foreground size-5" />
               </div>
               <div>
-                <h3 className={`${ubuntu.className} md:text-lg font-medium mb-0.5`}>{item.title}</h3>
+                <h3 className={`${ubuntu.className} md:text-lg mb-0.5`}>{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { IProjectListItem, IProjectMetadata, IScreenshot } from "@/types/projects.types";
+import { IProject, IProjectListItem, IProjectMetadata, IScreenshot } from "@/types/projects.types";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import fs from "node:fs";
@@ -6,7 +6,7 @@ import path from "node:path";
 import { slugify } from "./utils";
 
 const PROJECTS_ROOT = path.join(process.cwd(), "projects");
-let PROJECT_REGISTRY = new Map<string, string>();
+let PROJECT_REGISTRY = new Map<string, { path: string; index: number }>();
 const projectsDir = fs
   .readdirSync(PROJECTS_ROOT, { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory())
@@ -43,19 +43,49 @@ function parseMarkdownList(items: string | string[]): string[] {
   return [];
 }
 
-export function getListFromSection(content: string, sectionName: string): string[] {
-  const regex = new RegExp(`### ${sectionName}\\n([\\s\\S]*?)(?=\\n###|$)`, "i");
-  const match = content.match(regex);
-  if (!match) {
-    return [];
+function getMarkdownSection(markdown: string, title: string): string | null {
+  const lines = markdown.split(/\r?\n/);
+  const sectionLines: string[] = [];
+  let isInsideSection = false;
+  let sectionLevel = 0;
+
+  for (const line of lines) {
+    const headerMatch = line.match(/^(#{2,3})\s+(.+)$/i);
+    if (headerMatch) {
+      const currentTitle = headerMatch[2].trim();
+      const currentLevel = headerMatch[1].length;
+      if (currentTitle.toLowerCase() === title.toLowerCase()) {
+        isInsideSection = true;
+        sectionLevel = currentLevel;
+        continue;
+      }
+      if (isInsideSection && currentLevel <= sectionLevel) {
+        break;
+      }
+    }
+    if (isInsideSection) {
+      sectionLines.push(line);
+    }
   }
-  return match[1]
-    .split("\n")
-    .map((line) => line.replace(/^[-*]\s+/, "").trim())
-    .filter((line) => line.length > 0);
+  return sectionLines.length > 0 ? sectionLines.join("\n").trim() : null;
 }
 
-export function getProjectScreenshots(content: string, dirPath: string): IScreenshot[] {
+function getMarkdownList(markdown: string, title: string): string[] {
+  const sectionContent = getMarkdownSection(markdown, title);
+  if (!sectionContent) return [];
+  return sectionContent
+    .split(/\r?\n/)
+    .filter((line) => /^[-*+]\s+/.test(line.trim()))
+    .map((line) =>
+      line
+        .trim()
+        .replace(/^[-*+]\s+/, "")
+        .replace(/\*\*(.*?)\*\*/g, "$1")
+    )
+    .filter((item) => item.length > 0);
+}
+
+function getProjectScreenshots(content: string, dirPath: string): IScreenshot[] {
   const mdImageRegex = /!\[(.*?)\]\((.*?\.(?:png|jpg|jpeg|webp|gif|svg))\)/gi;
   const screenshots: IScreenshot[] = [];
   let match;
@@ -76,7 +106,7 @@ export function getProjectScreenshots(content: string, dirPath: string): IScreen
 }
 
 function buildProjectRegistry(): typeof PROJECT_REGISTRY {
-  const registry = new Map<string, string>();
+  const registry = new Map<string, { path: string; index: number }>();
   const projectData = [];
 
   for (const dir of projectsDir) {
@@ -110,7 +140,12 @@ function buildProjectRegistry(): typeof PROJECT_REGISTRY {
       }
       return new Date(b.date_created).getTime() - new Date(a.date_created).getTime();
     })
-    .map((data) => registry.set(data.slug, data.path));
+    .map((data, idx) =>
+      registry.set(data.slug, {
+        path: data.path,
+        index: idx + 1,
+      })
+    );
 
   return registry;
 }
@@ -126,11 +161,11 @@ export function getProjectMetadata(slug: string): IProjectMetadata {
   if (!PROJECT_REGISTRY.size) {
     PROJECT_REGISTRY = buildProjectRegistry();
   }
-  const dirPath = PROJECT_REGISTRY.get(slug);
-  if (!dirPath) {
+  const project = PROJECT_REGISTRY.get(slug);
+  if (!project) {
     return notFound();
   }
-  const filePath = path.join(dirPath, "README.md");
+  const filePath = path.join(project.path, "README.md");
   const fileContents = fs.readFileSync(filePath, "utf-8");
   const { data: rawMetadata, content: rawContent } = matter(fileContents);
   const title: string = rawMetadata.title ?? getProjectTitle(rawContent);
@@ -138,9 +173,43 @@ export function getProjectMetadata(slug: string): IProjectMetadata {
   return { title, description };
 }
 
-// export function getProjectContent(): IProject {
-//   return {};
-// }
+export function getSingleProject(slug: string): IProject {
+  if (!PROJECT_REGISTRY.size) {
+    PROJECT_REGISTRY = buildProjectRegistry();
+  }
+  const project = PROJECT_REGISTRY.get(slug);
+  if (!project) {
+    return notFound();
+  }
+  const files = fs.readdirSync(project.path);
+  if (!files.includes("README.md")) {
+    return notFound();
+  }
+  const filePath = path.join(project.path, "README.md");
+  const fileContents = fs.readFileSync(filePath, "utf-8");
+  const { data: rawMetadata, content: rawContent } = matter(fileContents);
+  const projectTitle = rawMetadata.title ?? getProjectTitle(rawContent);
+  if (!projectTitle) {
+    return notFound();
+  }
+  const imagePath = path.join("/projects", project.path.replace(PROJECTS_ROOT, ""));
+
+  return {
+    index: project.index,
+    title: projectTitle,
+    slug: slugify(projectTitle),
+    description: getProjectDescription(rawContent),
+    screenshots: getProjectScreenshots(rawContent, imagePath),
+    tech_stack: parseMarkdownList(rawMetadata.tech_stack),
+    date_created: new Date(rawMetadata.date_created ?? 0),
+    github_url: rawMetadata.github_url,
+    live_demo_url: rawMetadata.live_demo_url,
+    objective: getMarkdownSection(rawContent, "Objectives"),
+    key_features: getMarkdownList(rawContent, "Key Features")!,
+    concepts_learned: getMarkdownList(rawContent, "Concepts Learned"),
+    tools_technologies: getMarkdownList(rawContent, "Tools and Technologies Used"),
+  };
+}
 
 // export function getProjectFiles() {}
 
@@ -156,12 +225,12 @@ export function getTechnologiesUsed(): string[] {
     PROJECT_REGISTRY = buildProjectRegistry();
   }
   const techUsedList = new Set<string>();
-  PROJECT_REGISTRY.values().forEach((projectDirPath) => {
-    const files = fs.readdirSync(projectDirPath);
+  PROJECT_REGISTRY.forEach((project) => {
+    const files = fs.readdirSync(project.path);
     if (!files.includes("README.md")) {
       return;
     }
-    const filePath = path.join(projectDirPath, "README.md");
+    const filePath = path.join(project.path, "README.md");
     const fileContents = fs.readFileSync(filePath, "utf-8");
     const { data: rawMetadata, content: rawContent } = matter(fileContents);
     const projectTitle = rawMetadata.title ?? getProjectTitle(rawContent);
@@ -183,21 +252,21 @@ export function getAllProjects(): IProjectListItem[] {
   }
   const projectsList: IProjectListItem[] = [];
 
-  PROJECT_REGISTRY.values().forEach((projectDirPath, idx) => {
-    const files = fs.readdirSync(projectDirPath);
+  PROJECT_REGISTRY.forEach((project) => {
+    const files = fs.readdirSync(project.path);
     if (!files.includes("README.md")) {
       return;
     }
-    const filePath = path.join(projectDirPath, "README.md");
+    const filePath = path.join(project.path, "README.md");
     const fileContents = fs.readFileSync(filePath, "utf-8");
     const { data: rawMetadata, content: rawContent } = matter(fileContents);
     const projectTitle = rawMetadata.title ?? getProjectTitle(rawContent);
     if (!projectTitle) {
       return;
     }
-    const imagePath = path.join("/projects", projectDirPath.replace(PROJECTS_ROOT, ""));
+    const imagePath = path.join("/projects", project.path.replace(PROJECTS_ROOT, ""));
     projectsList.push({
-      index: idx + 1,
+      index: project.index,
       title: projectTitle,
       slug: slugify(projectTitle),
       description: getProjectDescription(rawContent),

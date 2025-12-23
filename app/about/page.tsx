@@ -1,4 +1,5 @@
 import Icon from "@/components/icon";
+import InfoSectionCard from "@/components/info-section-card";
 import { ubuntu } from "@/lib/fonts";
 import { ChevronRight, House, icons } from "lucide-react";
 import Link from "next/link";
@@ -46,26 +47,6 @@ const goals_list = [
   "Develop clean, maintainable, and well-documented code",
 ];
 
-interface InfoSectionCardProps {
-  icon: keyof typeof icons;
-  title: string;
-  children: React.ReactNode;
-}
-
-function InfoSectionCard({ title, icon, children }: InfoSectionCardProps) {
-  return (
-    <section className="card mb-8 p-6">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="p-2.5 rounded-lg bg-muted">
-          <Icon name={icon} className="size-5 text-primary" />
-        </div>
-        <h2 className="text-lg font-medium">{title}</h2>
-      </div>
-      {children}
-    </section>
-  );
-}
-
 export default function About() {
   return (
     <main className="section-container">
@@ -77,7 +58,7 @@ export default function About() {
         <span className="text-foreground">About</span>
       </nav>
 
-      <div className="space-y-4 max-w-2xl mb-10">
+      <div className="space-y-4 max-w-3xl mb-10">
         <h1 className={`${ubuntu.className} page-title`}>About This Showcase</h1>
         <p className="section-description">
           This website serves as a comprehensive portfolio of all projects completed during the Web Technology course.
@@ -85,50 +66,52 @@ export default function About() {
         </p>
       </div>
 
-      <InfoSectionCard icon="BookOpen" title="Project Overview">
-        <p className="text-muted-foreground leading-relaxed">
-          This showcase website is designed as a personal academic project portfolio, combining elements of a portfolio
-          and a simplified GitHub-like code explorer. Each project includes detailed documentation, source code viewing,
-          and visual demonstrations. The projects progress from fundamental HTML/CSS layouts to complex React
-          applications, building a strong foundation in modern web development practices and tools.
-        </p>
-      </InfoSectionCard>
+      <div className="space-y-8 mb-8">
+        <InfoSectionCard icon="BookOpen" title="Project Overview">
+          <p className="text-muted-foreground leading-relaxed">
+            This showcase website is designed as a personal academic project portfolio, combining elements of a
+            portfolio and a simplified GitHub-like code explorer. Each project includes detailed documentation, source
+            code viewing, and visual demonstrations. The projects progress from fundamental HTML/CSS layouts to complex
+            React applications, building a strong foundation in modern web development practices and tools.
+          </p>
+        </InfoSectionCard>
 
-      <section className="mb-8">
-        <h2 className="text-lg font-medium mb-4">Key Features</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {key_features_list.map((item) => (
-            <div key={item.title} className="p-5 card hover:border-primary/20">
-              <div className="p-2.5 rounded-lg bg-muted w-fit mb-3">
-                <Icon name={item.icon as keyof typeof icons} className="size-5 text-primary" />
+        <section>
+          <h2 className="section-title mb-4">Key Features</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {key_features_list.map((item) => (
+              <div key={item.title} className="p-5 card hover:border-primary/20">
+                <div className="p-2.5 rounded-lg bg-muted w-fit mb-3">
+                  <Icon name={item.icon as keyof typeof icons} className="size-5 text-primary" />
+                </div>
+                <h3 className="font-medium mb-1.5">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.description}</p>
               </div>
-              <h3 className="font-medium mb-1.5">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      <InfoSectionCard icon="Sparkles" title="Skill Demostrated">
-        <div className="flex flex-wrap gap-x-2 gap-y-2.5">
-          {skills_list.map((skill) => (
-            <span key={skill} className="py-1 px-2.5 rounded-md text-sm font-medium bg-badge text-badge-foreground">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </InfoSectionCard>
+        <InfoSectionCard icon="Sparkles" title="Skill Demostrated">
+          <div className="flex flex-wrap gap-x-2 gap-y-2.5">
+            {skills_list.map((skill) => (
+              <span key={skill} className="py-1 px-2.5 rounded-md text-sm bg-badge text-badge-foreground">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </InfoSectionCard>
 
-      <InfoSectionCard icon="Target" title="Learning Goals">
-        <ul className="space-y-2">
-          {goals_list.map((goal, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-muted-foreground list-none">
-              <ChevronRight className="size-4 mt-0.5 text-primary shrink-0" />
-              <span className="text-sm">{goal}</span>
-            </li>
-          ))}
-        </ul>
-      </InfoSectionCard>
+        <InfoSectionCard icon="Target" title="Learning Goals">
+          <ul className="space-y-2">
+            {goals_list.map((goal, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-muted-foreground list-none">
+                <ChevronRight className="size-4 mt-0.5 text-primary shrink-0" />
+                <span className="text-sm">{goal}</span>
+              </li>
+            ))}
+          </ul>
+        </InfoSectionCard>
+      </div>
 
       <div className="p-4 rounded-xl bg-muted/50 border border-border text-center">
         <p className="text-sm text-muted-foreground">

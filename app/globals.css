@@ -202,7 +202,7 @@
   }
 
   .page-title {
-    @apply text-foreground text-3xl md:text-4xl font-semibold;
+    @apply text-foreground text-3xl md:text-4xl font-medium;
   }
 
   .section-title {

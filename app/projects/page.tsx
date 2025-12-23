@@ -18,7 +18,7 @@ export default function AllProjectsPage() {
         <ChevronRight className="size-3.5" />
         <span className="text-foreground">Projects</span>
       </nav>
-      <div className="space-y-4 max-w-2xl mb-10">
+      <div className="space-y-4 max-w-3xl mb-10">
         <h1 className={`${ubuntu.className} page-title`}>All Projects</h1>
         <p className="section-description">
           Browse through all the projects completed during the Web Technology course. Each project includes source code,

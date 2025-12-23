@@ -6,7 +6,7 @@ export const inter = Inter({
 });
 
 export const ubuntu = Ubuntu({
-  weight: "400",
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
 });
 

@@ -3,7 +3,7 @@
 import { cx } from "@/lib/utils";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
-const baseStyles = "border hover:opacity-85 py-2 px-3 text-sm font-normal";
+const baseStyles = "border hover:opacity-85 py-2 px-3 text-sm font-medium";
 const variantStyles = {
   primary: `bg-primary border-primary text-secondary ${baseStyles}`,
   outline: `bg-transparent border-muted-foreground/25 text-foreground hover:bg-muted-foreground/10 hover:text-primary ${baseStyles}`,
