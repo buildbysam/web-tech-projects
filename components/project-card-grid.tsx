@@ -23,7 +23,7 @@ async function ProjectThumbnail({ src, alt }: IScreenshot) {
 
 function ProjectCard({ project }: { project: IProjectListItem }) {
   return (
-    <Link href={`/projects/${project.slug}`} className="group card block overflow-hidden">
+    <Link href={`/projects/${project.slug}`} className="group card block overflow-hidden shadow-xs hover:shadow-sm">
       <div className="aspect-video overflow-hidden bg-muted">
         <ProjectThumbnail src={project.thumbnail.src} alt={project.thumbnail.alt} />
       </div>

@@ -1,4 +1,4 @@
-import { IProject, IProjectListItem, IProjectMetadata, IScreenshot } from "@/types/projects.types";
+import { IProjectListItem, IProjectMetadata, IScreenshot } from "@/types/projects.types";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import fs from "node:fs";

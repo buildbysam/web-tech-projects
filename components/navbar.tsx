@@ -27,14 +27,14 @@ export default function Navbar() {
             <p className="text-foreground font-medium text-base lg:text-xl">Web Tech Projects</p>
           </Link>
           <div className="flex-between md:gap-4 lg:gap-6">
-            <ul className="hidden md:flex justify-between items-center gap-3 lg:gap-4">
+            <ul className="hidden md:flex justify-between items-center gap-3.5 lg:gap-5">
               {nav_links.map((link, idx) => {
                 const isActive = pathname === link.href || (pathname.startsWith(link.href) && link.href !== "/");
                 return (
                   <li
                     key={idx}
                     className={cx(
-                      "hover:text-foreground text-sm lg:text-base hover:font-medium",
+                      "hover:text-foreground text-sm lg:text-[15px] hover:font-medium",
                       isActive ? "text-foreground font-medium" : "text-muted-foreground font-normal"
                     )}
                   >
