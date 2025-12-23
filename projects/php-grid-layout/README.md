@@ -18,8 +18,7 @@ A simple 4x4 grid system generated using PHP loops and styled with CSS Flexbox.
 ![screenshot of php grid layout](screenshots/php-grid-layout.png)
 
 ## Objectives
-* To use PHP for repeating repetitive HTML tasks.
-* To practice centering elements and creating a responsive grid layout with CSS.
+Use PHP to repeat repetitive HTML tasks and practice centering elements with a responsive CSS grid layout.
 
 ## Key Features
 * **Dynamic Generation:** Uses nested PHP loops to create 16 numbered boxes automatically.
@@ -34,8 +33,9 @@ A simple 4x4 grid system generated using PHP loops and styled with CSS Flexbox.
 * **Inline-Flex:** Using `display: inline-flex` to align content inside small containers.
 
 ## Tools and Technologies Used
-* **HTML5:** For the page structure and box containers.
-* **CSS3:** For the background colors, grid spacing, and hover effects.
-* **PHP:** To calculate numbers and echo the box elements to the page.
+* HTML5
+* CSS3
+* PHP
+* Git
 
 ---

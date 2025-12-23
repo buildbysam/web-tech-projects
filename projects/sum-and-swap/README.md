@@ -22,8 +22,7 @@ A PHP-based calculator that computes the sum of two numbers and demonstrates the
 *The result page showing the original sum and the swapped values.*
 
 ## Objectives
-* To create a basic web application that processes user input using PHP.
-* To practice mathematical logic and variable manipulation in a web environment.
+Build a basic web application to process user input and practice mathematical logic using PHP.
 
 ## Key Features
 * **Number Calculation:** Instantly calculates the sum of two user-provided integers.
@@ -38,8 +37,9 @@ A PHP-based calculator that computes the sum of two numbers and demonstrates the
 * **Modular Code:** Using PHP `include` statements for headers and footers to keep code organized.
 
 ## Tools and Technologies Used
-* **HTML5:** For the structure of the input forms and result displays.
-* **CSS3:** For styling the layout, buttons, and result containers.
-* **PHP:** For the core mathematical logic and data processing.
+* HTML5
+* CSS3
+* PHP
+* Git
 
 ---

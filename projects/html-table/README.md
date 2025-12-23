@@ -17,8 +17,7 @@ A clean and organized data table built with HTML and CSS to display contact info
 ![screenshot of html table project](screenshots/html-table.png)
 
 ## Objectives
-* To practice structuring data using HTML table tags.
-* To apply custom styling to improve the readability of data rows.
+Practice structuring data using HTML table tags and apply custom styling to improve readability.
 
 ## Key Features
 * **Styled Header:** A bright orange header that clearly distinguishes the column titles.
@@ -33,7 +32,8 @@ A clean and organized data table built with HTML and CSS to display contact info
 * **Layout Management:** Using `margin: auto` and `max-width` to control the table size.
 
 ## Tools and Technologies Used
-* **HTML5:** For the semantic table structure.
-* **CSS3:** For colors, spacing, and layout styling.
+* HTML5
+* CSS3
+* Git
 
 ---

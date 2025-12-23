@@ -17,8 +17,7 @@ A clean and simple horizontal navigation bar built with HTML and CSS.
 ![screenshot of horizontal navbar](screenshots/horizontal-navbar.png)
 
 ## Objectives
-* To create a functional navigation menu for a website.
-* To practice layout alignment using basic CSS properties.
+Create a functional navigation menu and practice layout alignment using basic CSS.
 
 ## Key Features
 * **Horizontal Layout:** Links are arranged side-by-side for easy access.
@@ -33,7 +32,8 @@ A clean and simple horizontal navigation bar built with HTML and CSS.
 * **Box Model:** Managing `padding`, `margin`, and `border-radius` to shape the menu.
 
 ## Tools and Technologies Used
-* **HTML5:** For the navigation structure and links.
-* **CSS3:** For the layout, colors, and interactive hover effects.
+* HTML5
+* CSS3
+* Git
 
 ---

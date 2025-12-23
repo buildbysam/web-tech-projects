@@ -18,8 +18,7 @@ A simple web project that displays a grid of colorful boxes using HTML, CSS, and
 ![screenshot of colored boxes project](screenshots/colored-boxes.png)
 
 ## Objectives
-* To create a clean and organized layout using Flexbox.
-* To practice generating multiple elements automatically with JavaScript.
+Create a clean layout and practice generating elements using JavaScript loops.
 
 ## Key Features
 * **Organized Layout:** Uses a centered flexbox container to align items perfectly.
@@ -32,8 +31,9 @@ A simple web project that displays a grid of colorful boxes using HTML, CSS, and
 * **CSS Selectors:** Using ID selectors to apply different background colors to specific groups.
 
 ## Tools and Technologies Used
-* **HTML5:** For the basic page structure.
-* **CSS3:** For styling, colors, and the flexible layout.
-* **JavaScript:** To dynamically build the box grid on the page.
+* HTML5
+* CSS3
+* JavaScript
+* Git
 
 ---

@@ -17,8 +17,7 @@ A simple and clean user registration form built with HTML and CSS.
 ![screenshot of register form project](screenshots/register-form.png)
 
 ## Objectives
-* To create a structured layout for user data entry.
-* To practice styling form elements like inputs, selects, and buttons.
+Create a structured layout for data entry and practice styling various form elements.
 
 ## Key Features
 * **Form Validation:** Uses "required" attributes to ensure users fill out all fields.
@@ -33,7 +32,8 @@ A simple and clean user registration form built with HTML and CSS.
 * **Box Sizing:** Using `border-box` to manage padding and width consistently.
 
 ## Tools and Technologies Used
-* **HTML5:** For the form structure and input fields.
-* **CSS3:** For the styling, layout, and interactive effects.
+* HTML5
+* CSS3
+* Git
 
 ---

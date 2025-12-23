@@ -25,11 +25,8 @@ This project is a beginner-friendly visualizer for the Bubble Sort algorithm. It
 ![preview of sorted list](screenshots/bubble-sort-finish.png)
 *Final state after the sorting process is complete.*
 
----
-
 ## Objectives
-* To visualize how a sorting algorithm reorganizes data.
-* To create an interactive interface using PHP and HTML forms.
+Visualize how sorting algorithms reorganize data and build an interactive interface using PHP and HTML forms.
 
 ## Key Features
 * **Customizable List Size:** Adjust the number of bars using a slider.
@@ -43,9 +40,10 @@ This project is a beginner-friendly visualizer for the Bubble Sort algorithm. It
 * **Conditional Rendering:** Showing different buttons and text based on whether the sorting is finished.
 
 ## Tools and Technologies Used
-* **HTML5:** For the structure of the cards and forms.
-* **CSS3:** For styling the bars and the layout.
-* **PHP:** To handle the sorting logic and state management.
-* **JavaScript:** For minor UI enhancements.
+* HTML5
+* CSS3
+* PHP
+* JavaScript
+* Git
 
 ---
