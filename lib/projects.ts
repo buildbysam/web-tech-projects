@@ -11,7 +11,7 @@ import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import fs from "node:fs";
 import path from "node:path";
-import { slugify } from "./utils";
+import { isImageFile, slugify } from "./utils";
 
 const PROJECTS_ROOT = path.join(process.cwd(), "projects");
 let PROJECT_REGISTRY = new Map<string, IRegistryItem>();
@@ -19,6 +19,29 @@ const projectsDir = fs
   .readdirSync(PROJECTS_ROOT, { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory())
   .map((dirent) => dirent.name);
+
+export class TreeNode {
+  public children: TreeNode[] = [];
+  public extension?: string;
+  public content?: string;
+
+  constructor(path: string, type: "file", extension: string, content?: string);
+  constructor(path: string, type: "dir");
+  constructor(
+    public path: string,
+    public type: "file" | "dir",
+    extension?: string,
+    content?: string
+  ) {
+    if (type === "file") {
+      if (!extension) {
+        throw new Error(`Node of type "file" at ${path} must have an extension.`);
+      }
+      this.extension = extension;
+      this.content = content ?? "";
+    }
+  }
+}
 
 function getProjectDescription(content: string): string {
   const descriptionRegex = /^#\s+.+?\n+([\s\S]+?)(?=\n#{1,6}\s|$)/m;
@@ -155,15 +178,49 @@ function buildProjectRegistry(): typeof PROJECT_REGISTRY {
   return registry;
 }
 
+function buildTree(rootPath: string, excludes: string[] = []): TreeNode {
+  const root = new TreeNode(rootPath, "dir");
+  const stack: TreeNode[] = [root];
+  const excludeSet = new Set(excludes);
+  while (stack.length) {
+    const currentNode = stack.pop()!;
+    const entries = fs.readdirSync(currentNode.path, { withFileTypes: true });
+    for (const entry of entries) {
+      if (excludeSet.has(entry.name)) {
+        continue;
+      }
+      const fullPath = path.join(currentNode.path, entry.name);
+      let childNode: TreeNode;
+      if (entry.isDirectory()) {
+        childNode = new TreeNode(fullPath, "dir");
+        stack.push(childNode);
+      } else {
+        const ext = path.extname(entry.name).slice(1);
+        const isImage = isImageFile(ext);
+        let content = "";
+        try {
+          if (isImage) {
+            const buffer = fs.readFileSync(fullPath);
+            content = `data:image/${ext === "svg" ? "svg+xml" : ext};base64,${buffer.toString("base64")}`;
+          } else {
+            content = fs.readFileSync(fullPath, "utf-8");
+          }
+        } catch (err) {
+          console.warn(`Could not read ${fullPath}:`, err);
+          continue;
+        }
+        childNode = new TreeNode(fullPath, "file", ext || "txt", content);
+      }
+      currentNode.children.push(childNode);
+    }
+  }
+  return root;
+}
+
 function ensureRegistry() {
   if (!PROJECT_REGISTRY.size) {
     PROJECT_REGISTRY = buildProjectRegistry();
   }
-}
-
-export function getAllProjectSlugs(): string[] {
-  ensureRegistry();
-  return Array.from(PROJECT_REGISTRY.keys());
 }
 
 function parseProject(project: IRegistryItem, fullDetail: true): TParsedData<IProject> | null;
@@ -208,20 +265,25 @@ function parseProject(
   };
 }
 
+export function getAllProjectSlugs(): string[] {
+  ensureRegistry();
+  return Array.from(PROJECT_REGISTRY.keys());
+}
+
 export function getProjectMetadata(slug: string): IProjectMetadata {
   ensureRegistry();
-  const projectEntry = PROJECT_REGISTRY.get(slug);
-  const project = projectEntry ? parseProject(projectEntry, false) : null;
-  if (!project) {
+  const project = PROJECT_REGISTRY.get(slug);
+  const data = project ? parseProject(project, false) : null;
+  if (!data) {
     return notFound();
   }
   return {
-    title: project.title,
-    description: project.description,
+    title: data.title,
+    description: data.description,
   };
 }
 
-export function getSingleProject(slug: string): IProject {
+export function getProjectDetail(slug: string): IProject {
   ensureRegistry();
   const project = PROJECT_REGISTRY.get(slug);
   const data = project ? parseProject(project, true) : null;
@@ -229,6 +291,19 @@ export function getSingleProject(slug: string): IProject {
     return notFound();
   }
   return data as IProject;
+}
+
+export function getProjectSourceTree(slug: string): TreeNode[] {
+  ensureRegistry();
+  const project = PROJECT_REGISTRY.get(slug);
+  if (!project) {
+    return [];
+  }
+  const tree = buildTree(project.path, ["README.md", "screenshots", "node_modules", ".git", "dist"]);
+  return tree.children.sort((a, b) => {
+    if (a.type === b.type) return a.path.localeCompare(b.path);
+    return a.type === "dir" ? -1 : 1;
+  });
 }
 
 export function getProjectsCount(): number {

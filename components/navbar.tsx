@@ -4,7 +4,7 @@ import { cx } from "@/lib/utils";
 import { CodeXml, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./button";
 import ThemeToggleBtn from "./theme-toggle-btn";
 import { ubuntu } from "@/lib/fonts";
@@ -25,7 +25,7 @@ export default function Navbar() {
         <div className="flex-between w-full max-w-7xl mx-auto pr-2 pl-4 md:px-4 py-2 lg:py-3">
           <Link href={"/"} className="flex-center gap-1.5 lg:gap-2.5">
             <CodeXml className="text-primary size-6" />
-            <p className={`${ubuntu.className} text-foreground font-medium text-base lg:text-xl`}>Web Tech Projects</p>
+            <p className={`${ubuntu.className} text-foreground text-base lg:text-xl`}>Web Tech Projects</p>
           </Link>
           <div className="flex-between md:gap-4 lg:gap-6">
             <ul className="hidden md:flex justify-between items-center gap-3.5 lg:gap-5">
@@ -35,8 +35,8 @@ export default function Navbar() {
                   <li
                     key={idx}
                     className={cx(
-                      "hover:text-foreground text-sm lg:text-[15px] hover:font-medium",
-                      isActive ? "text-foreground font-medium" : "text-muted-foreground font-normal"
+                      "hover:text-foreground text-sm lg:text-[15px] font-medium",
+                      isActive ? "text-foreground" : "text-muted-foreground"
                     )}
                   >
                     <Link href={link.href}>{link.title}</Link>
@@ -51,6 +51,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
       {showMobileNavbar ? (
         <div className="border-b border-border block md:hidden">
           <ul className="space-y-1 p-3 pt-3.5">
@@ -60,11 +61,11 @@ export default function Navbar() {
                 <li
                   key={idx}
                   className={cx(
-                    "hover:text-foreground text-sm rounded-sm",
-                    isActive ? "text-foreground bg-primary/25 font-medium" : "text-muted-foreground font-normal"
+                    "hover:text-foreground text-sm rounded-sm font-medium",
+                    isActive ? "text-foreground bg-primary/25" : "text-muted-foreground"
                   )}
                 >
-                  <Link href={link.href} className="block py-2.5 px-3.5">
+                  <Link href={link.href} className="block py-2.5 px-3.5" onClick={() => setShowMobileNavbar(false)}>
                     {link.title}
                   </Link>
                 </li>

@@ -32,7 +32,7 @@
 
   --code-bg: hsl(220 14% 96%);
   --code-border: hsl(220 13% 91%);
-  --file-tree-bg: hsl(220 14% 98%);
+  --file-tree: hsl(220 14% 98%);
   --file-tree-hover: hsl(220 14% 94%);
   --file-active: hsl(173 58% 95%);
   --badge: hsl(220 14% 96%);
@@ -82,7 +82,7 @@
 
   --code-bg: hsl(224 20% 14%);
   --code-border: hsl(224 18% 22%);
-  --file-tree-bg: hsl(224 20% 11%);
+  --file-tree: hsl(224 20% 11%);
   --file-tree-hover: hsl(224 18% 18%);
   --file-active: hsl(173 40% 18%);
   --badge: hsl(224 18% 18%);
@@ -132,7 +132,7 @@
 
   --color-code-bg: var(--code-bg);
   --color-code-border: var(--code-border);
-  --color-file-tree-bg: var(--file-tree-bg);
+  --color-file-tree: var(--file-tree);
   --color-file-tree-hover: var(--file-tree-hover);
   --color-file-active: var(--file-active);
   --color-badge: var(--badge);
@@ -177,7 +177,7 @@
 
   .styled-scrollbar::-webkit-scrollbar-track,
   .styled-scrollbar-sm::-webkit-scrollbar-track {
-    @apply bg-muted;
+    @apply bg-muted!;
   }
 
   .styled-scrollbar::-webkit-scrollbar-thumb,
@@ -215,5 +215,13 @@
 
   .card {
     @apply rounded-xl bg-card border border-border;
+  }
+
+  .file-tree-item {
+    @apply flex items-center gap-2 px-3 py-1.5 rounded-md text-sm cursor-pointer hover:bg-file-tree-hover;
+  }
+
+  .file-tree-item-active {
+    @apply bg-file-active/55 pointer-events-none text-accent-foreground;
   }
 }

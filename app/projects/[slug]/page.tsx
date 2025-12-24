@@ -3,12 +3,13 @@ import InfoSectionCard from "@/components/info-section-card";
 import ProjectThumbnail from "@/components/project-thumbnail";
 import TechBadge from "@/components/tech-badge";
 import { ubuntu } from "@/lib/fonts";
-import { getAllProjectSlugs, getProjectMetadata, getSingleProject } from "@/lib/projects";
+import { getAllProjectSlugs, getProjectDetail, getProjectMetadata, getProjectSourceTree } from "@/lib/projects";
 import { capitalize, formatDate } from "@/lib/utils";
 import { ArrowLeft, Dot, ExternalLink, Github } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
-import CopyGithubUrlButton from "../_components/copy-github-url-button";
+import CopyContentButton from "../_components/copy-content-button";
+import FileExplorer from "./file-explorer";
 
 export function generateStaticParams() {
   const slugs = getAllProjectSlugs();
@@ -28,7 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = getSingleProject(slug);
+  const project = getProjectDetail(slug);
+  const treeData = JSON.parse(JSON.stringify(getProjectSourceTree(slug)));
 
   return (
     <main>
@@ -149,11 +151,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      <section className={project.github_url ? "border-b border-border" : ""}>
-        <div className="section-container">
-          <h2 className="section-title mb-4">Source Code</h2>
-        </div>
-      </section>
+      {treeData && Boolean(treeData.length) ? (
+        <section className={project.github_url ? "border-b border-border" : ""}>
+          <div className="section-container">
+            <h2 className="section-title mb-4">Source Code</h2>
+            <FileExplorer treeData={treeData} />
+          </div>
+        </section>
+      ) : null}
 
       {project.github_url ? (
         <section className="section-container">
@@ -163,7 +168,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               <p className="text-muted-foreground break-all">{project.github_url}</p>
             </div>
             <div className="flex gap-2 shrink-0 items-center">
-              <CopyGithubUrlButton githubURL={project.github_url} />
+              <CopyContentButton content={project.github_url} />
               <Link target="_blank" href={project.github_url}>
                 <Button variant="primary" className="flex-center">
                   <Github className="size-4 mr-2" />
