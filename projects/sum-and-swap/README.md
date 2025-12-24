@@ -4,7 +4,7 @@ description: A PHP-based calculator that computes the sum of two numbers and dem
 order: 5
 date_created: 2025-12-08
 featured: true
-github_url: https://github.com/
+github_url: https://github.com/buildbysam/web-tech-projects/tree/main/projects/sum-and-swap
 tech_stack:
   - HTML
   - CSS

@@ -3,7 +3,7 @@ title: HTML Table
 description: A clean and organized data table built with HTML and CSS to display contact information.
 order: 3
 date_created: 2025-11-25
-github_url: https://github.com/
+github_url: https://github.com/buildbysam/web-tech-projects/tree/main/projects/html-table
 tech_stack:
   - HTML
   - CSS

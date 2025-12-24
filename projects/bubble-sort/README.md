@@ -4,7 +4,7 @@ description: A simple web-based tool to visualize how the bubble sort algorithm 
 order: 7
 date_created: 2025-12-10
 featured: true
-github_url: https://github.com/
+github_url: https://github.com/buildbysam/web-tech-projects/tree/main/projects/bubble-sort
 tech_stack:
   - HTML
   - CSS

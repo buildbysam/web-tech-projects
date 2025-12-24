@@ -4,7 +4,7 @@ description: A simple and clean user registration form built with HTML and CSS.
 order: 4
 date_created: 2025-12-02
 featured: true
-github_url: https://github.com/
+github_url: https://github.com/buildbysam/web-tech-projects/tree/main/projects/register-form
 tech_stack:
   - HTML
   - CSS

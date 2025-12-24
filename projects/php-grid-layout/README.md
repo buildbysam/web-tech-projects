@@ -4,7 +4,7 @@ description: A simple 4x4 grid system generated using PHP loops and styled with 
 order: 6
 date_created: 2025-12-09
 featured: true
-github_url: https://github.com/
+github_url: https://github.com/buildbysam/web-tech-projects/tree/main/projects/php-grid-layout
 tech_stack:
   - HTML
   - CSS
