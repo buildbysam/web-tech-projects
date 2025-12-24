@@ -5,8 +5,8 @@ import { TreeNode } from "@/lib/projects";
 import { cx, getFullTechName, getTechStyle, isImageFile } from "@/lib/utils";
 import { File, FileCode2 } from "lucide-react";
 import { useState } from "react";
-import CopyContentButton from "../_components/copy-content-button";
 import FileNode from "./file-node";
+import CopyContentButton from "../../_components/copy-content-button";
 
 export default function FileExplorer({ treeData }: { treeData: TreeNode[] }) {
   const [selectedFile, setSelectedFile] = useState<(TreeNode & { name: string }) | null>(null);
