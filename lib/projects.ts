@@ -141,7 +141,7 @@ function buildProjectRegistry(): typeof PROJECT_REGISTRY {
   projectData
     .sort((a, b) => {
       if (a.order !== b.order) {
-        return a.order - b.order;
+        return b.order - a.order;
       }
       return new Date(b.date_created).getTime() - new Date(a.date_created).getTime();
     })
@@ -231,8 +231,6 @@ export function getSingleProject(slug: string): IProject {
   return data as IProject;
 }
 
-// export function getProjectFiles() {}
-
 export function getProjectsCount(): number {
   ensureRegistry();
   return PROJECT_REGISTRY.size;
@@ -244,7 +242,7 @@ export function getTechnologiesUsed(): string[] {
   allProjects.forEach((project) => {
     project.tech_stack.forEach((tech) => techUsedList.add(tech));
   });
-  return Array.from(techUsedList).sort();
+  return Array.from(techUsedList);
 }
 
 export function getTechnologiesUsedCount(): number {
@@ -270,5 +268,16 @@ export function getFeaturedProject(): IProjectListItem[] {
 }
 
 export function getProjects(tech?: string, sort?: SortOptions): IProjectListItem[] {
-  return getAllProjects();
+  let projects = getAllProjects();
+  if (tech) {
+    projects = projects.filter((p) => {
+      return p.tech_stack.some((t) => t.toLowerCase() === tech.toLowerCase());
+    });
+  }
+  if (sort && sort === "date-asc") {
+    projects.sort((a, b) => {
+      return new Date(a.date_created).getTime() - new Date(b.date_created).getTime();
+    });
+  }
+  return projects;
 }

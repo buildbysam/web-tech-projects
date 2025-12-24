@@ -1,7 +1,8 @@
 ---
 title: Sum and Swap
 description: A PHP-based calculator that computes the sum of two numbers and demonstrates the swap logic.
-date_created: 2025-12-18
+order: 5
+date_created: 2025-12-08
 featured: true
 github_url: https://github.com/
 tech_stack:

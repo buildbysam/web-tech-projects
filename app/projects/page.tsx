@@ -1,9 +1,10 @@
 import ProjectCardGrid from "@/components/project-card-grid";
 import { ubuntu } from "@/lib/fonts";
-import { getProjects, getTechnologiesUsed } from "@/lib/projects";
+import { getProjects, getProjectsCount, getTechnologiesUsed } from "@/lib/projects";
 import { ChevronRight, House } from "lucide-react";
 import Link from "next/link";
 import FilterProjects from "./_components/filter-projects";
+import { SortOptions } from "@/types/projects.types";
 
 export default async function ProjectsPage({
   searchParams,
@@ -11,7 +12,8 @@ export default async function ProjectsPage({
   searchParams: Promise<{ tech?: string; sort?: string }>;
 }) {
   const filters = await searchParams;
-  const projects = getProjects();
+  const projects = getProjects(filters.tech, filters.sort as SortOptions);
+  const totalProjects = getProjectsCount();
   const allTech = getTechnologiesUsed();
 
   return (
@@ -32,6 +34,9 @@ export default async function ProjectsPage({
       </div>
       <FilterProjects activeTech={filters.tech} activeSort={filters.sort} allTech={["All", ...allTech]} />
       <ProjectCardGrid projects={projects} />
+      <div className="text-center mt-8 text-sm text-muted-foreground">
+        Showing {projects.length} of {totalProjects} projects
+      </div>
     </main>
   );
 }

@@ -1,7 +1,8 @@
 ---
 title: PHP Grid Layout
 description: A simple 4x4 grid system generated using PHP loops and styled with CSS Flexbox.
-date_created: 2025-12-18
+order: 6
+date_created: 2025-12-09
 featured: true
 github_url: https://github.com/
 tech_stack:

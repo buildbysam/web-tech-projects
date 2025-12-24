@@ -1,7 +1,8 @@
 ---
 title: HTML Table
 description: A clean and organized data table built with HTML and CSS to display contact information.
-date_created: 2025-12-18
+order: 3
+date_created: 2025-11-25
 github_url: https://github.com/
 tech_stack:
   - HTML

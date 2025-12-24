@@ -29,8 +29,7 @@ export default function FilterProjects({ allTech, activeTech, activeSort }: Prop
       else params.set("tech", updates.tech);
     }
     if (updates.sort) {
-      if (updates.sort === SortOptions.newest) params.delete("sort");
-      else params.set("sort", updates.sort);
+      params.set("sort", updates.sort);
     }
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };

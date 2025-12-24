@@ -1,7 +1,8 @@
 ---
 title: Bubble Sort Visualizer
 description: A simple web-based tool to visualize how the bubble sort algorithm works step-by-step.
-date_created: 2025-05-20
+order: 7
+date_created: 2025-12-10
 featured: true
 github_url: https://github.com/
 tech_stack:

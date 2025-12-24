@@ -1,7 +1,8 @@
 ---
 title: Horizontal Navbar
 description: A clean and simple horizontal navigation bar built with HTML and CSS.
-date_created: 2025-12-18
+order: 2
+date_created: 2025-11-24
 github_url: https://github.com/
 tech_stack:
   - HTML

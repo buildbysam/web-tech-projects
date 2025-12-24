@@ -1,7 +1,8 @@
 ---
 title: Colored Boxes
 description: A simple web project that displays a grid of colorful boxes using HTML, CSS, and JavaScript.
-date_created: 2025-12-18
+order: 1
+date_created: 2025-11-23
 github_url: https://github.com/
 tech_stack:
   - HTML
