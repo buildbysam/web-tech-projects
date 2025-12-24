@@ -1,12 +1,11 @@
 import "server-only";
-import { execSync } from "child_process";
 
-export function getCommitCount(): number {
-  try {
-    const stdout = execSync("git rev-list --count HEAD");
-    return parseInt(stdout.toString().trim(), 10);
-  } catch (error) {
-    console.error("Failed to get git commit count:", error);
-    return 0;
+export async function getCommitCount(): Promise<number> {
+  const res = await fetch(`https://api.github.com/repos/buildbysam/web-tech-projects/commits?per_page=1`);
+  const link = res.headers.get("link");
+  if (link) {
+    const match = link.match(/page=(\d+)>; rel="last"/);
+    return match ? parseInt(match[1]) : 1;
   }
+  return 1;
 }
