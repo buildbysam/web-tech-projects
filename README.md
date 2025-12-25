@@ -17,12 +17,14 @@ The goal of this application is to provide a clean, organized space to explore p
 ## Project Structure
 All individual class assignments and projects are stored within the `projects/` directory for easy access and organization.
 
-[**Browse Projects →**](./projects)
+[**Browse Projects**](./projects)
 
 ## Learning Goals
 * Master the building blocks of the web: HTML, CSS, PHP, and JavaScript.
 * Build responsive interfaces that function on both mobile and desktop devices.
 * Write clean, well-structured, and maintainable code.
 * Understand how to turn design concepts into working web pages.
+
+[**Visit live site here!**](https://webtechprojects.vercel.app/)
 
 ---
