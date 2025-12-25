@@ -14,7 +14,7 @@ export default function FileExplorer({ treeData }: { treeData: TreeNode[] }) {
   return (
     <div className="w-full card overflow-hidden">
       <div className="flex flex-col lg:flex-row min-h-125 max-h-210">
-        <div className="bg-file-tree w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-border overflow-auto">
+        <div className="bg-file-tree w-full lg:w-64 border-b lg:border-b-0 min-h-48 lg:border-r border-border overflow-auto">
           <div className="px-4 h-12 flex items-center border-b border-border">
             <span className="text-sm font-medium">Files</span>
           </div>

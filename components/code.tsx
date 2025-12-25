@@ -44,7 +44,7 @@ export default function Code({ language, className = "", children }: Props) {
       PreTag="div"
       showLineNumbers
       lineNumberStyle={lineNumberStyle}
-      className={`text-sm overflow-auto ${firacode.className} ${className}`}
+      className={`text-sm overflow-scroll styled-scrollbar-sm ${firacode.className} ${className}`}
     >
       {codeString}
     </SyntaxHighlighter>
