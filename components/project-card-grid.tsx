@@ -17,7 +17,7 @@ export default function ProjectCardGrid({ projects }: Props) {
         <Link
           key={project.slug}
           href={`/projects/${project.slug}`}
-          style={{ animationDelay: `${idx + 1}00ms` }}
+          style={{ animationDelay: `${idx}00ms` }}
           className="animate__animated animate__fadeIn hover:-translate-y-1 group card block overflow-hidden shadow-xs hover:shadow-sm"
         >
           <div className="aspect-video overflow-hidden bg-muted">

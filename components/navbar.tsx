@@ -23,7 +23,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm">
       <div className="border-b border-border">
         <div className="flex-between w-full max-w-7xl mx-auto pr-2 pl-4 md:px-4 py-2 lg:py-3">
-          <Link href={"/"} className="flex-center gap-1.5 lg:gap-2.5">
+          <Link href={"/"} className="hover:-translate-y-px flex-center gap-1.5 lg:gap-2.5">
             <CodeXml className="text-primary size-6" />
             <p className={`${ubuntu.className} text-foreground text-base lg:text-xl`}>Web Tech Projects</p>
           </Link>
